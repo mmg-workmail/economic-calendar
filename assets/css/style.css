@@ -1,0 +1,6 @@
+.v-rating__item button, .v-rating__wrapper, .v-rating__item{
+    width: 16px !important;
+    height: 16px !important;
+    display: flex;
+    align-items: center;
+}
