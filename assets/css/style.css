@@ -4,3 +4,15 @@
     display: flex;
     align-items: center;
 }
+
+.calendar-economic input[type=date], .calendar-economic input[type=email], .calendar-economic input[type=number], .calendar-economic input[type=password], .calendar-economic input[type=search], .calendar-economic input[type=tel], .calendar-economic input[type=text], .calendar-economic input[type=url], .calendar-economic select, .calendar-economic textarea {
+    width: auto;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    transition: none;
+}
+
+.calendar-economic *{
+    font-family: IRANSansX, IRANSansX !important;
+}

@@ -3,7 +3,7 @@ export  enum  Category {
     inflation = 'inflation', 
     bonds = 'bonds', 
     consumer = 'consumer', 
-    GDP = 'GDP', 
+    GDP = 'gdp', 
     government = 'government', 
     housing = 'housing', 
     labor = 'labor', 

@@ -21,4 +21,9 @@ export const DateFilter = [
         en: 'This Week',
         fa : 'این هفته'
     },
+    {
+        value : DateEvent.next_week,
+        en: 'Next Week',
+        fa : 'هفته آینده'
+    },
 ]
