@@ -4,9 +4,7 @@ export default defineNuxtModule({
   setup(_options, nuxt) {
     // If you're using Nuxt < 3.8.1, you should add a ts-expect-error here
     nuxt.hook('vuetify:registerModule', register => register({
-      moduleOptions: {
-
-      },
+      moduleOptions: {},
       vuetifyOptions: {
           /* nuxt-vuetify module options */
           treeshaking: true,

@@ -4,11 +4,11 @@ export function useWebSocket(items: Ref<{data: any[]}> = ref({data: []})) {
     function connect() {
         socket.value = new WebSocket(runtimeConfig.public.SOCKET_BASE_URL);
         socket.value.onopen = function (e) {
-            console.log("[open] Connection established");
+            // console.log("[open] Connection established");
         };
     
         socket.value.onmessage = function (event) {
-            console.log(`[message] Data received from server: ${ event.data }`);
+            // console.log(`[message] Data received from server: ${ event.data }`);
 
             let calendar = JSON.parse(event.data)
 
@@ -33,11 +33,11 @@ export function useWebSocket(items: Ref<{data: any[]}> = ref({data: []})) {
     
         socket.value.onclose = function (event) {
             if (event.wasClean) {
-                console.log(`[close] Connection closed cleanly, code = ${ event.code } reason = ${ event.reason }`);
+                // console.log(`[close] Connection closed cleanly, code = ${ event.code } reason = ${ event.reason }`);
             } else {
                 // e.g. server process killed or network down
                 // event.code is usually 1006 in this case
-                console.log('[close] Connection died');
+                // console.log('[close] Connection died');
                 setTimeout(() => {
                     connect()
                 }, 5000)
@@ -45,7 +45,7 @@ export function useWebSocket(items: Ref<{data: any[]}> = ref({data: []})) {
         };
     
         socket.value.onerror = function (error) {
-            console.log([error]);
+            // console.log([error]);
         };
     }
     
