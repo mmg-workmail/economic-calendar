@@ -27,9 +27,9 @@ const {  isPast, isForOneHour } = useMomment()
                     color="grey-lighten-1"></v-rating>
             </div>
         </td>
-        <td class="px-3  whitespace-nowrap ">
+        <td class="px-3  whitespace-nowrap">
             <div class=" flex gap-2">
-                <span class="text-sm text-gray-900">{{ item.Event }}</span>
+                <span class="text-sm text-gray-900" dir="ltr">{{ item.Event }}</span>
                 <span class="text-sm text-gray-300 uppercase">{{ item.Reference }}</span>
             </div>
         </td>

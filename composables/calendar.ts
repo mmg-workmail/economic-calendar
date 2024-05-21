@@ -14,7 +14,7 @@ export function useCalendar() {
         method: 'post',
         body: filters,
         headers: {
-            'lang'  : language.value.code
+            'lang'  : language.value.code,
         },
         onRequest({ request, options }) {
             const storageFilter = useStorage()
@@ -40,7 +40,6 @@ export function useCalendar() {
 
             options.body = body
 
-            // router.push()
 
         }
     }) 

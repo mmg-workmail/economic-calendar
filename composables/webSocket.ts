@@ -1,8 +1,8 @@
 export function useWebSocket(items: Ref<{data: any[]}> = ref({data: []})) {
-
+    const runtimeConfig = useRuntimeConfig();
     const socket = ref()
     function connect() {
-        socket.value = new WebSocket("ws://192.168.1.103:5555");
+        socket.value = new WebSocket(runtimeConfig.public.SOCKET_BASE_URL);
         socket.value.onopen = function (e) {
             console.log("[open] Connection established");
         };

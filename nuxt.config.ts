@@ -5,7 +5,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      API_BASE_URL: 'http://192.168.1.103:7777',
+      API_BASE_URL: 'https://cal-api.eplanetbrokers.org',
+      SOCKET_BASE_URL: 'wss://calcal.eplanetbrokers.org',
     },
   },
   modules: [
@@ -13,7 +14,7 @@ export default defineNuxtConfig({
     MyVuetifyModule, 'vuetify-nuxt-module'
   ],
   css: [
-    "@/assets/fonts/iranSans/style.css",
+    // "@/assets/fonts/iranSans/style.css",
     "@/assets/css/style.css",
     "@/assets/css/flag.css",
   ],

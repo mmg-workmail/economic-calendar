@@ -5,15 +5,17 @@ export default defineNuxtModule({
     // If you're using Nuxt < 3.8.1, you should add a ts-expect-error here
     nuxt.hook('vuetify:registerModule', register => register({
       moduleOptions: {
-      /* nuxt-vuetify module options */
-      treeshaking: true,
-      useIconCDN: true,
-      /* vite-plugin-vuetify options */
-      styles: true,
-      autoImport: true,
-      useVuetifyLabs: true,
+
       },
       vuetifyOptions: {
+          /* nuxt-vuetify module options */
+          treeshaking: true,
+          useIconCDN: true,
+          /* vite-plugin-vuetify options */
+          styles: 'none',
+          autoImport: false,
+          useVuetifyLabs: false,
+
           icons: {
             defaultSet: 'mdi',
             sets: [{

@@ -4,7 +4,9 @@
     display: flex;
     align-items: center;
 }
-
+.v-rating__item button {
+    font-size: 12px
+}
 .calendar-economic input[type=date], .calendar-economic input[type=email], .calendar-economic input[type=number], .calendar-economic input[type=password], .calendar-economic input[type=search], .calendar-economic input[type=tel], .calendar-economic input[type=text], .calendar-economic input[type=url], .calendar-economic select, .calendar-economic textarea {
     width: auto;
     border: none;
@@ -12,7 +14,25 @@
     padding: 0;
     transition: none;
 }
+.calendar-economic table tbody tr td , .calendar-economic table  tr th {
+    background-color: rgba(0, 0, 0, 0) !important;
+    border: none;
+    padding: 10px  !important;
+    vertical-align : middle;
+    line-height: inherit;
+}
+.jet-menu-title {
+    display: flex;
+    justify-items: center;
+}
+.calendar-economic .table-box table {
+    margin: 0;
+}
 
-.calendar-economic *{
-    font-family: IRANSansX, IRANSansX !important;
+html .calendar-economic * , html .v-overlay-container *{
+    font-family : "Futura Book", Sans-serif !important;
+}
+html[lang="fa-IR"]  .calendar-economic *, html[lang="fa-ir"] .v-overlay-container * {
+    font-family : 'Vazir' !important;
+    line-height: 1.5em !important;
 }

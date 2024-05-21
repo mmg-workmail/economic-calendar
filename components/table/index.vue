@@ -33,8 +33,8 @@ const header = ref({
 </script>
 
 <template>
-    <v-card :loading="loading" :disabled="loading"  rounded="lg">
-        <div class=" flex flex-col overflow-auto">
+    <v-card :loading="loading && 'primary'"   rounded="lg" >
+        <div class=" flex flex-col overflow-auto" v-if="!loading">
 
             <template v-for="(dailyEvents, key ) of groupByDate" :key="key">
                 <div class="table-box border !border-gray-200 " v-if="dailyEvents.length > 0 || true">
@@ -42,7 +42,7 @@ const header = ref({
                         <thead class=" bg-primary text-gray-500 " :class="{'text-left' : language.code == 'en', 'text-right' : language.code == 'fa'}">
                             <tr>
                                 <th scope="col" colspan="4"
-                                    class="px-3 py-3 font-medium  uppercase ">
+                                    class="px-3 py-3 font-medium text-sm  uppercase ">
                                     {{ getFullDate(key, language.code) }}
                                 </th>
 
@@ -70,5 +70,10 @@ const header = ref({
             </template>
 
         </div>
+        <template v-else>
+            <div class=" flex justify-center items-center py-10 px-5">
+                <v-progress-circular indeterminate :size="89" :width="5" color="primary"></v-progress-circular>
+            </div>
+        </template>
     </v-card>
 </template>
