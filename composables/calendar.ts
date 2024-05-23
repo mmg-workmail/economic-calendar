@@ -64,9 +64,15 @@ export function useCalendar() {
     const loading = computed(() => pending.value)
 
     function getCountry(item) {
-        return country.value.find(c => c.Country == (language.value.code == 'en' ? item.Country : item.OCountry))
+        return country.value.find(c => c.Country == (language.value.code == 'en' ? parseCountry(item.Country) : parseCountry(item.OCountry)))
     }
-
+    function parseCountry(countryName : string) {
+        return countryName
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    }
+    
     return {
         loading,
         groupByDate,

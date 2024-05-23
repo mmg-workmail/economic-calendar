@@ -2,6 +2,7 @@
 
 const props = defineProps<{ item: any }>()
 const {  isPast, isForOneHour } = useMomment()
+
 </script>
 <template>
     <tr class="bg-gray-30 hover:bg-gray-100 transition-all duration-100"
@@ -43,10 +44,10 @@ const {  isPast, isForOneHour } = useMomment()
             {{ item.Previous }}
         </td>
         <td class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium" width="150px">
-            {{ item.TEForecast }}
+            {{ item.Forecast }}
         </td>
         <td class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium" width="150px">
-            {{ item.Forecast }}
+            {{ item.TEForecast }}
         </td>
     </tr>
 </template>
