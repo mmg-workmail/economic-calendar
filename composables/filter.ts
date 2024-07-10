@@ -3,11 +3,11 @@ import { DateEvent } from "~/src/enums/date";
 import { Impact } from "~/src/enums/impact";
 
 export interface Filter {
-    country : [],
-    category : null | Category,
-    date : null | DateEvent,
+    country: [],
+    category: null | Category,
+    date: null | DateEvent,
     impact: Impact | null,
-    timezone : null | string
+    timezone: null | string
 }
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 

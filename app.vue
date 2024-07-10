@@ -1,14 +1,20 @@
 <script setup lang="ts">
-
-const language = useLang()
-
+const language = useLang();
 </script>
 
 <template>
   <v-app>
-    <v-locale-provider v-bind="{ ltr: language.code === lang.en, rtl: language.code === lang.fa }">
+    <v-locale-provider
+      v-bind="{
+        ltr: language.code === lang.en,
+        rtl: language.code === lang.fa,
+      }"
+    >
       <v-main>
-        <div class="calendar-economic" :dir="language.code === lang.en ? 'en' : 'fa'">
+        <div
+          class="calendar-economic"
+          :dir="language.code === lang.en ? 'en' : 'fa'"
+        >
           <v-container fluid>
             <v-row>
               <v-col cols="12">
@@ -23,5 +29,4 @@ const language = useLang()
       </v-main>
     </v-locale-provider>
   </v-app>
-
 </template>

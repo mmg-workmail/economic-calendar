@@ -1,4 +1,7 @@
 import { Countries } from "~/src/constants/countries";
+import { Impact } from "~/src/enums/impact";
+import { Selected } from "~/src/constants/countries";
+
 export function useCalendar() {
     const { getDate, getTimezoneOffset } = useMomment()
     const language = useLang()
@@ -8,43 +11,47 @@ export function useCalendar() {
 
     const country = ref(Countries);
 
-
-
-    const {data: items, pending, status} =  useFetch<{data: any[]}>(`${runtimeConfig.public.API_BASE_URL}/api/calendar`, {
+    const { data: items, pending, status } = useFetch<{ data: any[] }>(`${runtimeConfig.public.API_BASE_URL}/api/events`, {
         method: 'post',
         body: filters,
         headers: {
-            'lang'  : language.value.code,
+            'lang': language.value.code,
         },
         onRequest({ request, options }) {
             const storageFilter = useStorage()
             storageFilter.filter.value = filters.value
-            const body = {...options.body}
-            if (options.body?.country.length <=0) {
-                delete body?.country
+            const body = { ...options.body }
+            if (options.body?.country.length <= 0) {
+                body.country = Selected;
             }
             if (!options.body?.category) {
-               delete body?.category
+                body.category = [];
             }
 
             if (!options.body?.impact) {
-                delete body?.impact
-             }
+                body.impact = [Impact.one, Impact.two, Impact.three];
+            }
 
-             if (!options.body?.timezone) {
+            if (!options.body?.timezone) {
                 delete body?.timezone
-             } else {
+            } else {
+                body.timezone = getTimezoneOffset(body?.timezone)
+            }
 
-                body.timezone = getTimezoneOffset(body?.timezone) 
-             }
+            if (options.body?.category) {
+                body.category = [body.category]
+            }
+            if (options.body?.impact) {
+                body.impact = [body.impact]
+            }
 
             options.body = body
 
 
         }
-    }) 
+    })
 
-    
+
     const groupByDate = computed(() => {
         const result = {};
 
@@ -63,16 +70,16 @@ export function useCalendar() {
 
     const loading = computed(() => pending.value)
 
-    function getCountry(item) {
-        return country.value.find(c => c.Country == (language.value.code == 'en' ? parseCountry(item.Country) : parseCountry(item.OCountry)))
+    function getCountry(item: any) {
+        return country.value.find(c => c.ISO2 == item.countryCode)
     }
-    function parseCountry(countryName : string) {
+    function parseCountry(countryName: string) {
         return countryName
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
     }
-    
+
     return {
         loading,
         groupByDate,
