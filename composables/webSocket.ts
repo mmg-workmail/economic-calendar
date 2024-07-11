@@ -1,4 +1,4 @@
-export function useWebSocket(items: Ref<{data: any[]}> = ref({data: []})) {
+export function useWebSocket(items: Ref<{ data: any[] }> = ref({ data: [] })) {
     const runtimeConfig = useRuntimeConfig();
     const socket = ref()
     function connect() {
@@ -6,7 +6,7 @@ export function useWebSocket(items: Ref<{data: any[]}> = ref({data: []})) {
         socket.value.onopen = function (e) {
             // console.log("[open] Connection established");
         };
-    
+
         socket.value.onmessage = function (event) {
             // console.log(`[message] Data received from server: ${ event.data }`);
 
@@ -14,23 +14,39 @@ export function useWebSocket(items: Ref<{data: any[]}> = ref({data: []})) {
 
             if (calendar.topic == 'calendar') {
 
-                items.value?.data.map((i) => {
+                // {
+                //     "topic": "calendar",
+                //     "data": {
+                //       "changes": [
+                //         {
+                //           "key": "consensus",
+                //           "value": 1.31
+                //         }
+                //       ],
+                //       "eventDateId": "572a6d78-9482-4618-b39a-b9aba4c378fc",
+                //       "eventId": "261824a0-be7a-4f51-acbf-376b543acc83",
+                //       "lastUpdated": 1720634414,
+                //       "type": "eventDate_updated"
+                //     }
+                //   }
 
-                    if (i.CalendarId == calendar.calendarId) {
-                        i.Actual = calendar.actual;
-                        i.Previous = calendar.previous;
-                        i.forecast = calendar.forecast;
-                        i.TEForecast = calendar.teforecast;
+
+                items.value?.data.map((i) => {
+                    if (i.eventId == calendar.data.eventId) {
+                        calendar.data.changes.map((c: any) => {
+                            i[c.key] = c.value;
+                        })
 
                         i.highlight = true
                         setTimeout(() => {
                             i.highlight = false
                         }, 10000)
+
                     }
                 })
             }
         };
-    
+
         socket.value.onclose = function (event) {
             if (event.wasClean) {
                 // console.log(`[close] Connection closed cleanly, code = ${ event.code } reason = ${ event.reason }`);
@@ -43,12 +59,12 @@ export function useWebSocket(items: Ref<{data: any[]}> = ref({data: []})) {
                 }, 5000)
             }
         };
-    
+
         socket.value.onerror = function (error) {
             // console.log([error]);
         };
     }
-    
+
     connect();
 
     return {
