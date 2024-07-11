@@ -32,7 +32,7 @@ export function useWebSocket(items: Ref<{ data: any[] }> = ref({ data: [] })) {
 
 
                 items.value?.data.map((i) => {
-                    if (i.eventId == calendar.data.eventId) {
+                    if (i.id == calendar.data.eventDateId) {
                         calendar.data.changes.map((c: any) => {
                             i[c.key] = c.value;
                         })
