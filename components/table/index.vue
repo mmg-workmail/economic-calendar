@@ -59,11 +59,12 @@ const header = ref({
                   {{ header.actual[language.code] }}
                 </th>
                 <th scope="col" class="px-3 py-3 text-sm font-medium uppercase">
-                  {{ header.previous[language.code] }}
-                </th>
-                <th scope="col" class="px-3 py-3 text-sm font-medium uppercase">
                   {{ header.consensus[language.code] }}
                 </th>
+                <th scope="col" class="px-3 py-3 text-sm font-medium uppercase">
+                  {{ header.previous[language.code] }}
+                </th>
+
                 <th scope="col" class="px-3 py-3 text-sm font-medium uppercase">
                   {{ header.dev[language.code] }}
                 </th>

@@ -14,7 +14,7 @@ import { Impact, ImpactRate } from "~/src/enums/impact";
     }"
   >
     <td class="px-3 py-2 whitespace-nowrap relative" width="140px">
-      <table-columns-date :date="item.Date" />
+      <table-columns-date :date="item.dateUtc" />
     </td>
     <td class="px-3 py-2 whitespace-nowrap" width="60px">
       <div class="flex gap-2 items-center">
@@ -47,37 +47,50 @@ import { Impact, ImpactRate } from "~/src/enums/impact";
     <td class="px-3 whitespace-nowrap">
       <div class="flex gap-2">
         <span class="text-sm text-gray-900" dir="ltr">{{ item.name }}</span>
-        <span class="text-sm text-gray-300 uppercase">
+        <!-- <span class="text-sm text-gray-300 uppercase">
           {{ item.Reference }}
-        </span>
+        </span> -->
       </div>
     </td>
 
     <td class="px-3 py-2 whitespace-nowrap" width="150px">
       <span
-        class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium"
+        class="whitespace-nowrap text-gray-600 text-sm font-medium flex gap-0.5"
+        :class="{
+          ' text-green-800': item.isBetterThanExpected,
+          'text-red-800':
+            item.actual < item.previous && item.actual < item.consensus,
+        }"
       >
         <template v-if="item.actual">
-          {{ item.actual }}
+          <span v-if="item.unit == '$' || item.unit == '€'" class="font-bold">
+            {{ item.unit }}
+          </span>
+          <span>{{ item.actual }}</span>
           <span
             v-if="item.potency && item.potency !== 'ZERO'"
             class="font-bold"
           >
             {{ item.potency }}
           </span>
+          <span v-if="item.unit == '%'" class="font-bold"> % </span>
         </template>
         <template v-else> - </template>
       </span>
     </td>
     <td
-      class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium"
+      class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium flex gap-0.5"
       width="150px"
     >
       <template v-if="item.consensus">
-        {{ item.consensus }}
+        <span v-if="item.unit == '$' || item.unit == '€'" class="font-bold">
+          {{ item.unit }}
+        </span>
+        <span>{{ item.consensus }}</span>
         <span v-if="item.potency && item.potency !== 'ZERO'" class="font-bold">
           {{ item.potency }}
         </span>
+        <span v-if="item.unit == '%'" class="font-bold"> % </span>
       </template>
       <template v-else> - </template>
     </td>
@@ -85,18 +98,60 @@ import { Impact, ImpactRate } from "~/src/enums/impact";
       class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium"
       width="150px"
     >
-      <template v-if="item.previous">
-        {{ item.previous }}
-        <span v-if="item.potency && item.potency !== 'ZERO'" class="font-bold">
-          {{ item.potency }}
-        </span>
-      </template>
-      <template v-else> - </template>
+      <div class="flex gap-0.5">
+        <template v-if="item.revised">
+          <div class="flex gap-0.5 items-center">
+            <!-- <span v-if="item.unit == '$' || item.unit == '€'" class="font-bold">
+              {{ item.unit }}
+            </span> -->
+            <span>{{ item.revised }}</span>
+            <span
+              v-if="item.potency && item.potency !== 'ZERO'"
+              class="font-bold"
+            >
+              {{ item.potency }}
+            </span>
+            <span v-if="item.unit == '%'" class="font-bold"> % </span>
+            <span class="cursor-pointer">
+              <v-tooltip :text="`Revised from ${item.previous}`">
+                <template v-slot:activator="{ props }">
+                  <v-btn
+                    v-bind="props"
+                    icon="mdi-information"
+                    variant="icon"
+                    color="primary"
+                    size="x-small"
+                    density="comfortable"
+                  ></v-btn>
+                </template>
+              </v-tooltip>
+            </span>
+          </div>
+        </template>
+        <template v-else-if="item.previous">
+          <span v-if="item.unit == '$' || item.unit == '€'" class="font-bold">
+            {{ item.unit }}
+          </span>
+          <span>{{ item.previous }}</span>
+          <span
+            v-if="item.potency && item.potency !== 'ZERO'"
+            class="font-bold"
+          >
+            {{ item.potency }}
+          </span>
+          <span v-if="item.unit == '%'" class="font-bold"> % </span>
+        </template>
+        <template v-else> - </template>
+      </div>
     </td>
     <td
-      class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium"
+      class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium flex gap-0.5"
       width="150px"
-    ></td>
+    >
+      <template v-if="item.ratioDeviation">
+        <span>{{ item.ratioDeviation.toFixed(3) }}</span>
+      </template>
+    </td>
     <td
       class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium"
       width="150px"
