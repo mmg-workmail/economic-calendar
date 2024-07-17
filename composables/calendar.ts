@@ -2,7 +2,7 @@ import { Countries } from "~/src/constants/countries";
 import { Impact } from "~/src/enums/impact";
 import { Selected } from "~/src/constants/countries";
 
-export function useCalendar() {
+export function useCalendar(categories: any = null) {
     const { getDate, getTimezoneOffset } = useMomment()
     const language = useLang()
     const filters = useFilter()
@@ -25,7 +25,7 @@ export function useCalendar() {
                 body.country = Selected;
             }
             if (!options.body?.category) {
-                body.category = [];
+                body.category = categories.data.map(c => c.id);
             }
 
             if (!options.body?.impact) {

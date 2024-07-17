@@ -4,13 +4,11 @@ import { DateFilter } from "~/src/constants/date";
 import { Impact, ImpactRate } from "~/src/enums/impact";
 import TIMEZONE from "~/src/constants/timezone";
 
-const language = useLang();
+const props = defineProps({ categories: {} });
 
+const language = useLang();
 const countries = ref(Countries);
 
-const { items, status, pending } = useCategory();
-
-const categories = ref(items);
 const date = ref(DateFilter);
 
 const filters = useFilter();

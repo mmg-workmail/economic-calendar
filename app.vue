@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const language = useLang();
+
+const { items: categories, status, pending } = useCategory();
 </script>
 
 <template>
@@ -18,10 +20,10 @@ const language = useLang();
           <v-container fluid>
             <v-row>
               <v-col cols="12">
-                <Header />
+                <Header :categories="categories" />
               </v-col>
-              <v-col cols="12">
-                <Table />
+              <v-col cols="12" v-if="categories">
+                <Table :categories="categories" />
               </v-col>
             </v-row>
           </v-container>

@@ -1,8 +1,20 @@
 <script setup lang="ts">
+import { Impact, ImpactRate } from "~/src/enums/impact";
 const props = defineProps<{ item: any }>();
 const { isPast, isForOneHour } = useMomment();
 
-import { Impact, ImpactRate } from "~/src/enums/impact";
+const language = useLang();
+
+const status = ref({
+  speech: {
+    en: "Speech",
+    fa: "سخنرانی",
+  },
+  report: {
+    en: "Report",
+    fa: "گزارش",
+  },
+});
 </script>
 <template>
   <tr
@@ -53,7 +65,7 @@ import { Impact, ImpactRate } from "~/src/enums/impact";
       </div>
     </td>
 
-    <td class="px-3 py-2 whitespace-nowrap" width="150px">
+    <td class="px-3 py-2 whitespace-nowrap" width="120px">
       <span
         class="whitespace-nowrap text-gray-600 text-sm font-medium flex gap-0.5"
         :class="{
@@ -80,7 +92,7 @@ import { Impact, ImpactRate } from "~/src/enums/impact";
     </td>
     <td
       class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium flex gap-0.5"
-      width="150px"
+      width="120px"
     >
       <template v-if="item.consensus">
         <span v-if="item.unit == '$' || item.unit == '€'" class="font-bold">
@@ -96,7 +108,7 @@ import { Impact, ImpactRate } from "~/src/enums/impact";
     </td>
     <td
       class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium"
-      width="150px"
+      width="120px"
     >
       <div class="flex gap-0.5">
         <template v-if="item.revised">
@@ -146,37 +158,38 @@ import { Impact, ImpactRate } from "~/src/enums/impact";
     </td>
     <td
       class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium flex gap-0.5"
-      width="150px"
+      width="120px"
     >
       <template v-if="item.ratioDeviation">
         <span>{{ item.ratioDeviation.toFixed(3) }}</span>
       </template>
+      <template v-else>
+        <span> - </span>
+      </template>
     </td>
     <td
       class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium"
-      width="150px"
+      width="60px"
     >
       <div class="flex gap-1 justify-center">
-        <v-tooltip text="Speech" color="success">
+        <v-tooltip
+          :text="status.speech[language.code]"
+          color="success"
+          v-if="item.isSpeech"
+        >
           <template v-slot:activator="{ props }">
-            <v-chip
-              size="small"
-              v-if="item.isSpeech"
-              color="success"
-              v-bind="props"
-            >
+            <v-chip size="small" color="success" v-bind="props">
               <v-icon> mdi-microphone </v-icon>
             </v-chip>
           </template>
         </v-tooltip>
-        <v-tooltip color="success" text="Report">
+        <v-tooltip
+          color="success"
+          :text="status.report[language.code]"
+          v-if="item.isReport"
+        >
           <template v-slot:activator="{ props }">
-            <v-chip
-              size="small"
-              color="success"
-              v-if="item.isReport"
-              v-bind="props"
-            >
+            <v-chip size="small" color="success" v-bind="props">
               <v-icon> mdi-chart-box-outline </v-icon>
             </v-chip>
           </template>

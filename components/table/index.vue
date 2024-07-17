@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const { loading, groupByDate, items } = useCalendar();
+const props = defineProps({ categories: {} });
+const { loading, groupByDate, items } = useCalendar(props.categories);
 
 useWebSocket(items);
 
