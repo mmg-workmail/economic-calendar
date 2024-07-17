@@ -29,6 +29,11 @@ const header = ref({
     fa: "وضعیت",
   },
 });
+
+const itemSelected = ref({});
+function openDetails(item: any) {
+  itemSelected.value = item;
+}
 </script>
 
 <template>
@@ -75,11 +80,17 @@ const header = ref({
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-              <table-item
-                v-for="(item, index) of dailyEvents"
-                :key="index"
-                :item="item"
-              />
+              <template v-for="(item, index) of dailyEvents" :key="index">
+                <table-item
+                  :item="item"
+                  @update:details="openDetails($event)"
+                />
+                <TableDetail
+                  :item="itemSelected"
+                  v-if="item.id === itemSelected.id"
+                  cols="9"
+                />
+              </template>
             </tbody>
           </table>
         </div>

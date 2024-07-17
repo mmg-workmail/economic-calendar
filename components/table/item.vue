@@ -3,6 +3,8 @@ import { Impact, ImpactRate } from "~/src/enums/impact";
 const props = defineProps<{ item: any }>();
 const { isPast, isForOneHour } = useMomment();
 
+const emit = defineEmits(["update:details"]);
+
 const language = useLang();
 
 const status = ref({
@@ -18,12 +20,13 @@ const status = ref({
 </script>
 <template>
   <tr
-    class="bg-gray-30 hover:bg-gray-100 transition-all duration-100"
+    class="bg-gray-30 hover:bg-gray-100 cursor-pointer transition-all duration-100"
     :class="{
       ' !bg-green-200': item.highlight,
       ' bg-slate-50': isPast(item.Date),
       ' bg-blue-50': isForOneHour(item.Date),
     }"
+    @click="emit('update:details', item)"
   >
     <td class="px-3 py-2 whitespace-nowrap relative" width="140px">
       <table-columns-date :date="item.dateUtc" />
