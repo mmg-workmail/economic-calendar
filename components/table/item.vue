@@ -17,6 +17,8 @@ const status = ref({
     fa: "گزارش",
   },
 });
+
+const { amount } = useFormatterPrice();
 </script>
 <template>
   <tr
@@ -43,7 +45,7 @@ const status = ref({
           </span>
         </template>
         <template v-else>
-          <span>{{ item.Country }}</span>
+          <span>{{ item.countryCode }}</span>
         </template>
       </div>
     </td>
@@ -62,9 +64,30 @@ const status = ref({
     <td class="px-3 whitespace-nowrap">
       <div class="flex gap-2">
         <span class="text-sm text-gray-900" dir="ltr">{{ item.name }}</span>
-        <!-- <span class="text-sm text-gray-300 uppercase">
-          {{ item.Reference }}
-        </span> -->
+        <div class="flex gap-1 justify-center">
+          <v-tooltip
+            :text="status.speech[language.code]"
+            color="success"
+            v-if="item.isSpeech"
+          >
+            <template v-slot:activator="{ props }">
+              <v-chip size="small" color="success" v-bind="props">
+                <v-icon> mdi-microphone </v-icon>
+              </v-chip>
+            </template>
+          </v-tooltip>
+          <v-tooltip
+            color="success"
+            :text="status.report[language.code]"
+            v-if="item.isReport"
+          >
+            <template v-slot:activator="{ props }">
+              <v-chip size="small" color="success" v-bind="props">
+                <v-icon> mdi-chart-box-outline </v-icon>
+              </v-chip>
+            </template>
+          </v-tooltip>
+        </div>
       </div>
     </td>
 
@@ -81,7 +104,7 @@ const status = ref({
           <span v-if="item.unit == '$' || item.unit == '€'" class="font-bold">
             {{ item.unit }}
           </span>
-          <span>{{ item.actual }}</span>
+          <span>{{ amount(item.actual) }}</span>
           <span
             v-if="item.potency && item.potency !== 'ZERO'"
             class="font-bold"
@@ -119,7 +142,7 @@ const status = ref({
             <!-- <span v-if="item.unit == '$' || item.unit == '€'" class="font-bold">
               {{ item.unit }}
             </span> -->
-            <span>{{ item.revised }}</span>
+            <span>{{ amount(item.revised) }}</span>
             <span
               v-if="item.potency && item.potency !== 'ZERO'"
               class="font-bold"
@@ -128,15 +151,15 @@ const status = ref({
             </span>
             <span v-if="item.unit == '%'" class="font-bold"> % </span>
             <span class="cursor-pointer">
-              <v-tooltip :text="`Revised from ${item.previous}`">
+              <v-tooltip :text="`Revised from ${amount(item.previous)}`">
                 <template v-slot:activator="{ props }">
                   <v-btn
                     v-bind="props"
                     icon="mdi-information"
-                    variant="icon"
                     color="primary"
                     size="x-small"
                     density="comfortable"
+                    variant="tonal"
                   ></v-btn>
                 </template>
               </v-tooltip>
@@ -147,7 +170,7 @@ const status = ref({
           <span v-if="item.unit == '$' || item.unit == '€'" class="font-bold">
             {{ item.unit }}
           </span>
-          <span>{{ item.previous }}</span>
+          <span>{{ amount(item.previous) }}</span>
           <span
             v-if="item.potency && item.potency !== 'ZERO'"
             class="font-bold"
@@ -164,40 +187,11 @@ const status = ref({
       width="120px"
     >
       <template v-if="item.ratioDeviation">
-        <span>{{ item.ratioDeviation.toFixed(3) }}</span>
+        <span>{{ amount(item.ratioDeviation.toFixed(3)) }}</span>
       </template>
       <template v-else>
         <span> - </span>
       </template>
-    </td>
-    <td
-      class="px-3 py-2 whitespace-nowrap text-gray-600 text-sm font-medium"
-      width="60px"
-    >
-      <div class="flex gap-1 justify-center">
-        <v-tooltip
-          :text="status.speech[language.code]"
-          color="success"
-          v-if="item.isSpeech"
-        >
-          <template v-slot:activator="{ props }">
-            <v-chip size="small" color="success" v-bind="props">
-              <v-icon> mdi-microphone </v-icon>
-            </v-chip>
-          </template>
-        </v-tooltip>
-        <v-tooltip
-          color="success"
-          :text="status.report[language.code]"
-          v-if="item.isReport"
-        >
-          <template v-slot:activator="{ props }">
-            <v-chip size="small" color="success" v-bind="props">
-              <v-icon> mdi-chart-box-outline </v-icon>
-            </v-chip>
-          </template>
-        </v-tooltip>
-      </div>
     </td>
   </tr>
 </template>

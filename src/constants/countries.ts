@@ -1222,7 +1222,15 @@ export const CountriesAll = [{
     "Group": "Major",
     "ISO3": "GBR",
     "ISO2": "GB"
-}, {
+},
+{
+    "Country": "United Kingdom",
+    "Continent": "Europe",
+    "Group": "Major",
+    "ISO3": "UK",
+    "ISO2": "UK"
+}
+    , {
     "Country": "United States",
     "Continent": "America",
     "Group": "Major, North America",

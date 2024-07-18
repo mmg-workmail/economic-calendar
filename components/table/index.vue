@@ -24,10 +24,10 @@ const header = ref({
     en: "Dev",
     fa: "Dev",
   },
-  status: {
-    en: "Status",
-    fa: "وضعیت",
-  },
+  // status: {
+  //   en: "Status",
+  //   fa: "وضعیت",
+  // },
 });
 
 const itemSelected = ref({});
@@ -78,9 +78,9 @@ function openDetails(item: any) {
                 <th scope="col" class="px-3 py-3 text-sm font-medium uppercase">
                   {{ header.dev[language.code] }}
                 </th>
-                <th scope="col" class="px-3 py-3 text-sm font-medium uppercase">
+                <!-- <th scope="col" class="px-3 py-3 text-sm font-medium uppercase">
                   {{ header.status[language.code] }}
-                </th>
+                </th> -->
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
