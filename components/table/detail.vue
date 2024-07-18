@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td class="!p-0" :colspan="props.cols">
+    <td class="!p-0 bg-gray-200" :colspan="props.cols">
       <v-card flat :loading="pending">
         <div class="!bg-gray-200 p-3 rounded-md">
           <div class="flex gap-5" v-if="item">
@@ -11,7 +11,7 @@
                     >{{ property.description[language.code] }} :</strong
                   >
                 </div>
-                <div v-html="item?.data?.description"></div>
+                <div class="description" v-html="item?.data?.description"></div>
               </div>
               <div class="flex flex-col" v-if="item?.data?.comments">
                 <div>

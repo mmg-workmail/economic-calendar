@@ -32,7 +32,11 @@ const header = ref({
 
 const itemSelected = ref({});
 function openDetails(item: any) {
-  itemSelected.value = item;
+  if (itemSelected.value?.id === item.id) {
+    itemSelected.value = {};
+  } else {
+    itemSelected.value = item;
+  }
 }
 </script>
 
