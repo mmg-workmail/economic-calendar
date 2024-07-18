@@ -369,7 +369,8 @@ export const CountriesAll = [{
     "Continent": "Europe",
     "Group": "Europe",
     "ISO3": "EMU",
-    "ISO2": "EA"
+    "ISO2": "EMU",
+    "flagCode": "EA"
 }, {
     "Country": "European Union",
     "Continent": "Europe",
@@ -1227,8 +1228,9 @@ export const CountriesAll = [{
     "Country": "United Kingdom",
     "Continent": "Europe",
     "Group": "Major",
-    "ISO3": "UK",
-    "ISO2": "UK"
+    "ISO3": "GBR",
+    "ISO2": "UK",
+    "codeFlag": "GB",
 }
     , {
     "Country": "United States",

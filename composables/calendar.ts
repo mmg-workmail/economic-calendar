@@ -1,4 +1,4 @@
-import { Countries } from "~/src/constants/countries";
+import { Countries, CountriesAll } from "~/src/constants/countries";
 import { Impact } from "~/src/enums/impact";
 import { Selected } from "~/src/constants/countries";
 
@@ -9,7 +9,8 @@ export function useCalendar(categories: any = null) {
     const runtimeConfig = useRuntimeConfig();
     const router = useRouter()
 
-    const country = ref(Countries);
+    const country = ref(CountriesAll);
+    // const country = ref(Countries);
 
     const { data: items, pending, status } = useFetch<{ data: any[] }>(`${runtimeConfig.public.API_BASE_URL}/api/events`, {
         method: 'post',

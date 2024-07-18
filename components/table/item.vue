@@ -37,7 +37,10 @@ const { amount } = useFormatterPrice();
       <div class="flex gap-2 items-center">
         <template v-if="item?.country">
           <span
-            :class="`flex w-10 h-8  flag flag-${item?.country?.ISO2.toLowerCase()}`"
+            :class="`flex w-10 h-8  flag flag-${
+              item?.country?.codeFlag?.toLowerCase() ||
+              item?.country?.ISO2.toLowerCase()
+            }`"
             :title="item.Country"
           ></span>
           <span class="" :title="item.Country">
