@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const language = useLang();
 
-const { items: categories, status, pending } = useCategory();
+const { items: categories, status, pending, groupByDate } = useCategory();
 </script>
 
 <template>

@@ -1,23 +1,36 @@
-# Use Node.js as the base image
-FROM node:18-alpine
+FROM node:18.14.0 as builder
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or yarn.lock) to the working directory
+# Copy package files and install dependencies
 COPY package*.json ./
+RUN npm install --prefer-offline --frozen-lockfile --non-interactive
 
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code to the working directory
+# Copy the rest of the application files
 COPY . .
 
-# Build the Nuxt 3 application
+# Run the build step
 RUN npm run build
+
+# Use a clean production image for running the app
+FROM node:18.14.0 as runner
+
+# Set the working directory
+WORKDIR /app
+
+# Copy only the necessary build output and package files from the builder
+COPY --from=builder /app/.output .output
+COPY --from=builder /app/package*.json ./
+
+# Install production dependencies
+RUN npm install --only=production --prefer-offline --non-interactive
 
 # Expose the application port
 EXPOSE 3000
 
-# Define the command to run the application
-CMD ["npm", "run", "start"]
+# Set environment variables
+ENV HOST=0.0.0.0
+
+# Start the application
+CMD ["node", ".output/server/index.mjs"]

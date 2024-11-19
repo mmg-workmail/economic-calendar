@@ -98,7 +98,7 @@ const property = ref({
     fa: "کم",
   },
   MEDIUM: {
-    en: "Meium",
+    en: "Medium",
     fa: "متوسط",
   },
   HIGH: {

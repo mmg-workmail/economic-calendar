@@ -57,7 +57,7 @@ export function useCalendar(categories: any = null) {
         const result = {};
 
         items.value?.data.map(i => {
-            const day = getDate(i.Date as string);
+            const day = getDate(i.dateUtc as string);
             if (!result[day]) {
                 result[day] = []
             }
