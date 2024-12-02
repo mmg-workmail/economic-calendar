@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-6xl mx-auto py-10">
+  <div class="">
     <div class="economic-calendar-tg">
       <div v-html="data"></div>
     </div>
