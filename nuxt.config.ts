@@ -1,7 +1,7 @@
 import MyVuetifyModule from './src/modules/my-vuetify-module'
 
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
