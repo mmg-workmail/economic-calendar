@@ -18,8 +18,7 @@ const { data } = useTgju();
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("https://eplanetbrokers.com/wp-content/uploads/2024/03/Vazir.woff")
-    format("woff");
+  src: url("/assets/fonts/vazir/Vazir.woff") format("woff");
 }
 
 @font-face {
@@ -27,20 +26,17 @@ const { data } = useTgju();
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("https://eplanetbrokers.com/wp-content/uploads/2024/03/Vazir-Bold.woff")
-    format("woff");
+  src: url("/assets/fonts/vazir/Vazir-Bold.woff") format("woff");
 }
 
 table#calendar {
   width: 100%;
   border: 1px solid #eee;
   font-family: Vazir;
-  font-size: 13px;
-  direction: rtl;
+  font-size: 14px;
+  direction: ltr;
 }
 
-tbody {
-}
 thead {
   border-radius: 15px;
   overflow: hidden;
@@ -51,7 +47,7 @@ thead {
 
 th {
   padding: 8px;
-  text-align: right !important;
+  text-align: left !important;
   background: #0f318d;
   color: white;
 }
